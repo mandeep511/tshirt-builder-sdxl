@@ -1,0 +1,354 @@
+/* CSS Variables */
+:root {
+  --periwinkle: #dcd6f7;
+  --periwinkle-2: #a6b1e1;
+  --black: #191716;
+  --puce: #b4869f;
+  --china-rose: #985f6f;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* General Styles */
+body {
+  /* font-family: sans-serif; */
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+  background-color: var(--periwinkle);
+  color: var(--black);
+}
+
+#app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+
+#canvas-container {
+  position: relative;
+  background-color: var(--periwinkle-2);
+  border-radius: 10px;
+  box-shadow: 0 0 5px 4px rgba(25, 23, 22, 0.25);
+  overflow: hidden;
+}
+
+#tshirt-canvas {
+  display: block;
+  width: 800px;
+  height: 600px;
+}
+
+#action-buttons {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+}
+
+
+#action-buttons button {
+  position: relative;
+  background-color: var(--puce);
+  color: var(--periwinkle);
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  margin-left: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#action-buttons button:hover {
+  background-color: var(--periwinkle-2);
+}
+
+.tool-tip {
+  position: relative;
+}
+/* Tooltip container */
+.tool-tip:hover::before {
+  content: attr(data-tooltip); /* This will get the text from the data-tooltip attribute */
+  position: absolute;
+  bottom: -150%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  white-space: nowrap; /* Prevent line breaks in the tooltip text */
+  z-index: 1000; /* Ensure the tooltip is on top of other elements */
+}
+
+/* Tooltip arrow */
+.tool-tip:hover::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-top: 5px solid #333;
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+}
+
+#input-area {
+  margin-left: 20px;
+  padding: 20px;
+  background-color: var(--periwinkle);
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+#input-area label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+#input-area input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--periwinkle);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+#input-area input[type="range"] {
+  width: 100%;
+}
+
+#input-area button {
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 600;
+  background-color: var(--black);
+  color: var(--periwinkle);
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#input-area button:hover {
+  background-color: var(--periwinkle-2);
+}
+
+#input-area button:disabled {
+  background-color: var(--china-rose);
+  color: var(--periwinkle);
+  cursor: not-allowed;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  #app {
+    flex-direction: column;
+    height: auto;
+    padding: 20px;
+  }
+
+  #canvas-container {
+    margin-bottom: 20px;
+  }
+
+  #tshirt-canvas {
+    width: 100%;
+    height: 400px;
+  }
+
+  #input-area {
+    margin-left: 0;
+  }
+}
+
+/* Custom Range Input Style with Your Color Palette */
+input[type=range] {
+  -webkit-appearance: none;
+  margin: 18px 0;
+  width: 100%;
+}
+
+input[type=range]:focus {
+  outline: none;
+}
+
+/* Track */
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  background: var(--periwinkle-2);
+  border-radius: 1.3px;
+  border: none;
+  transition: background-color 0.2s ease;
+}
+
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  background: var(--periwinkle-2);
+  border-radius: 1.3px;
+  border: none;
+}
+
+input[type=range]::-ms-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+
+/* Thumb */
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: 1px solid var(--black);
+  height: 36px;
+  width: 16px;
+  border-radius: 3px;
+  background: var(--puce);
+  cursor: pointer;
+  margin-top: -14px;
+}
+
+input[type=range]::-moz-range-thumb {
+  border: 1px solid var(--black);
+  height: 36px;
+  width: 16px;
+  border-radius: 3px;
+  background: var(--puce);
+  cursor: pointer;
+}
+
+input[type=range]::-ms-thumb {
+  border: 1px solid var(--black);
+  height: 36px;
+  width: 16px;
+  border-radius: 3px;
+  background: var(--puce);
+  cursor: pointer;
+}
+
+/* Lower and Upper Fill (For IE) */
+input[type=range]::-ms-fill-lower {
+  background: var(--periwinkle-2);
+}
+
+input[type=range]::-ms-fill-upper {
+  background: var(--periwinkle);
+}
+
+/* Focused Track (For WebKit/Blink) */
+input[type=range]:hover::-webkit-slider-runnable-track {
+  background: var(--china-rose);
+}
+
+/* hovered Lower and Upper Fill (For IE) */
+input[type=range]:hover::-ms-fill-lower {
+  background: var(--china-rose);
+}
+
+input[type=range]:hover::-ms-fill-upper {
+  background: var(--periwinkle);
+}
+
+
+.stamp::after {
+  position: absolute;
+  top: 7%;
+  left: 80%;
+  content: "";
+  width: 210px;
+  height: 220px;
+  scale: .9;
+  background-image: url("/Stamp.svg");
+  /* border-radius: 50%; */
+  /* box-shadow: 0 0 0 5px var(--dark-green); */
+}
+
+.dots-container {
+
+  --dot-size: 8px;
+  --dot-gap: 10px;
+
+  position: absolute;
+  top: 40%;
+  transform: translateY(-50%);
+  left: 14%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--dot-gap);
+  justify-content: center;
+  align-items: center;
+  z-index: -1;
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--dot-gap);
+}
+
+.dot {
+  width: var(--dot-size);
+  height: var(--dot-size);
+  border-radius: 50%;
+  background-color: var(--black);
+  cursor: pointer;
+}
+
+.quote-container {
+  font-weight: 600;
+  width: 400px;
+  position: absolute;
+  bottom: 10%;
+  right: 5%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.underline-overlap {
+  position: relative;
+  display: inline-block;
+}
+
+.underline-overlap::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  background-color: #D6F6DD;
+  z-index: -1;
+}
+
+.quote-container .quote-icon {
+  position: absolute;
+  top: -40px;
+  font-size: 40px;
+}
+
+.flower-art {
+  position: absolute;
+  bottom: 10%;
+  left: 5%;
+  width: 200px;
+  height: 200px;
+  background-image: url("/Flower.svg");
+}

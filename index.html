@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>T-Shirt Customization</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div id="app">
+    <div id="canvas-container">
+      <div id="tshirt-canvas"></div>
+      <div id="action-buttons">
+        <button class="tool-tip" data-tooltip="Light Shirt" id="light-tshirt"><i class="fas fa-tshirt fa-lg" style="color: #dcd6f7;"></i></button>
+        <button class="tool-tip" data-tooltip="Dark Shirt" id="dark-tshirt"><i class="fas fa-tshirt fa-lg" style="color: #191716;"></i></button>
+        <button class="tool-tip" data-tooltip="Download" id="download-btn"><i class="far fa-save fa-lg" style="color: #191716;"></i></button>
+      </div>
+    </div>
+    <div id="input-area">
+      <div id="pattern-position">
+        <label for="position-slider">Pattern Position</label>
+        <input type="range" id="position-slider" min="0" max="100" value="25">
+      </div>
+      <div id="prompt-input">
+        <label for="prompt-field">Enter Prompt</label>
+        <input type="text" id="prompt-field" placeholder="e.g. A steampunk dragon">
+      </div>
+      <button class="tool-tip" data-tooltip="Generate Pattern" id="generate-btn">Generate</button>
+      <button class="tool-tip" data-tooltip="coming soon" id="add-to-cart" disabled>
+        Add to cart
+      </button>
+      <!-- <div class="scene-handler">
+        <div class="btn-group">
+          <button id="inc-x-btn">Inc x</button>
+          <button id="inc-x-btn">Dec x</button>
+        </div>
+        <div class="btn-group">
+          <button id="inc-y-btn">Inc y</button>
+          <button id="inc-y-btn">Dec y</button>
+        </div>
+        <div class="btn-group">
+          <button id="inc-z-btn">Inc z</button>
+          <button id="inc-z-btn">Dec z</button>
+        </div>
+      </div> -->
+    </div>
+    <div class="stamp"></div>
+    <div class="dots-container">
+      <div class="dots">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div class="dots">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div class="dots">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div class="dots">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div class="dots">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div class="dots">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div class="dots">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+    </div>
+
+    <div class="quote-container">
+      <i class="quote-icon fas fa-quote-left fa-lg"></i>
+      <div class="quote">
+        <p>“The only way to do great work is to love what you do.”</p>
+        <p class="underline-overlap">– Steve Jobs</p>
+      </div>
+    </div>
+
+    <div class="flower-art">
+      <img src="/Flower.png" alt="pink flower" width="80px" height="80px">
+    </div>
+
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+  <script type="module" src="main.js"></script>
+</body>
+
+</html>

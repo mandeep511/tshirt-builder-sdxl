@@ -268,11 +268,11 @@ input[type=range]:hover::-ms-fill-upper {
 
 .stamp::after {
   position: absolute;
-  top: 7%;
+  top: 10%;
   left: 80%;
   content: "";
-  width: 210px;
-  height: 220px;
+  width: 132px;
+  height: 140px;
   scale: .9;
   background-image: url("/Stamp.svg");
   /* border-radius: 50%; */

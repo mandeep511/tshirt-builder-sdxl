@@ -125,31 +125,8 @@ const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableZoom = true;
 controls.enableRotate = true;
 
-// const zoomInBtn = document.getElementById('zoom-in');
-// const zoomOutBtn = document.getElementById('zoom-out');
-// const rotateBtn = document.getElementById('rotate');
-
-// zoomInBtn.addEventListener('click', () => {
-//   camera.zoom = camera.zoom + 1;
-// });
-
-// zoomOutBtn.addEventListener('click', () => {
-//   camera.zoom = camera.zoom - 1;
-// });
-
-// rotateBtn.addEventListener('click', () => {
-//   controls.autoRotate = !controls.autoRotate;
-// });
 
 // Pattern position slider
-const positionSlider = document.getElementById('position-slider');
-positionSlider.addEventListener('input', () => {
-  // Update pattern position based on slider value
-  // Assuming the pattern is applied as a texture
-  // loop over all children of the scene and find the tshirt object and update the texture offset
-  updatePatternPosition();
-});
-
 const updatePatternPosition = () => {
   scene.children.forEach((object) => {
     if (object.userData.name === "tshirt") {
@@ -159,11 +136,9 @@ const updatePatternPosition = () => {
     }
   });
 }
-// const tshirtObject = scene.children;
-// console.log(tshirtObject)
-// const patternTexture = tshirtObject.children[0].material.map;
-// const sliderValue = positionSlider.value / 100;
-// patternTexture.offset.x = sliderValue;
+
+const positionSlider = document.getElementById('position-slider');
+positionSlider.addEventListener('input',    updatePatternPosition);
 
 // Pattern generation
 const promptField = document.getElementById('prompt-field');
@@ -172,7 +147,7 @@ const generateBtn = document.getElementById('generate-btn');
 generateBtn.addEventListener('click', async () => {
   const prompt = promptField.value;
   // const payload = { prompt: "Seamless pattern for a t-shirt design, " + prompt + ", high detail, sharp focus, asthetic appeal, 4k" };
-  const payload = { prompt: `Seamless ${prompt} pattern for textile or t-shirt design, intricate details, sharp focus, aesthetically pleasing, 4k resolution, textile weave texture, vector illustration style` };
+  const payload = { prompt: `Seamless ${prompt} cloth print for t-shirt design, intricate details, sharp focus, aesthetically pleasing, 4k resolution, vector illustration style` };
   console.log(payload)
   try {
     const response = await fetch('http://127.0.0.1:5000/genrate-pattern-image', {
@@ -187,8 +162,6 @@ generateBtn.addEventListener('click', async () => {
 
     const data = await response.json();
     const imageUrl = data.imageUrl;
-    // const blob = await response.blob();
-    // const imageUrl = URL.createObjectURL(blob);
     console.log(imageUrl)
 
     updateTexture(imageUrl);
@@ -198,11 +171,6 @@ generateBtn.addEventListener('click', async () => {
     //   updateTexture(imageUrl)
     // });
 
-    // // Update T-Shirt material with generated pattern
-    // const tshirtObject = scene.children[0];
-    // const material = tshirtObject.children[0].material;
-    // material.map = new THREE.TextureLoader().load(imageUrl);
-    // material.needsUpdate = true;
   } catch (error) {
     console.error('Error generating pattern:', error);
   }

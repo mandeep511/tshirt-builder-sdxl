@@ -9,6 +9,7 @@ import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js
 // State
 let isSpinning = false;
 let tshirtModel = null;
+let spinTime = 0; // Keep track of the spin time
 
 // Three.js setup
 const scene = new THREE.Scene();
@@ -23,6 +24,20 @@ renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap; // for softer shadows
 
 document.getElementById('tshirt-canvas').appendChild(renderer.domElement);
+
+// Function to start the spinning
+function startSpin() {
+  isSpinning = true;
+  spinTime = 0; // Reset the spin time
+  camera.position.z = 42;
+}
+
+
+// Function to stop the spinning
+function stopSpin() {
+  isSpinning = false;
+  camera.position.z = 22;
+}
 
 const mtlLoader = new MTLLoader();
 mtlLoader.setPath('./');
@@ -120,7 +135,16 @@ scene.add(directionalLight);
 const animate = () => {
   requestAnimationFrame(animate);
   if (isSpinning && tshirtModel) {
-    tshirtModel.rotation.y += 0.01; // Adjust the rotation speed as needed
+    // tshirtModel.rotation.y += 0.01; // Adjust the rotation speed as needed
+    // Increase the spin time
+    spinTime += 0.009; // Adjust the spin time increment as needed
+
+    // Calculate the sinusoidal rotation speed
+    const rotationSpeed = .09 * Math.sin(spinTime); // Adjust the amplitude and frequency as needed
+
+    // Update the rotation
+    tshirtModel.rotation.y += rotationSpeed;
+
   }
 
   renderer.render(scene, camera);
@@ -154,10 +178,11 @@ const generateBtn = document.getElementById('generate-btn');
 generateBtn.addEventListener('click', async () => {
   const prompt = promptField.value;
   // const payload = { prompt: "Seamless pattern for a t-shirt design, " + prompt + ", high detail, sharp focus, asthetic appeal, 4k" };
-  const payload = { prompt: `Seamless ${prompt} cloth design for t-shirt design, intricate details, sharp focus, aesthetically pleasing, 4k resolution, vector illustration style` };
+  const payload = { prompt: `Seamless ${prompt} cloth design, intricate details, sharp focus, aesthetically pleasing, 4k resolution, vector illustration style` };
   console.log(payload)
   try {
-    isSpinning = true; // Start spinning
+    // isSpinning = true; // Start spinning
+    startSpin();
     const response = await fetch('http://127.0.0.1:5000/genrate-pattern-image', {
       method: "POST",
       mode: "cors",
@@ -182,7 +207,8 @@ generateBtn.addEventListener('click', async () => {
   } catch (error) {
     console.error('Error generating pattern:', error);
   } finally {
-    isSpinning = false; // Start spinning
+    // isSpinning = false; // Start spinning
+    stopSpin();
   }
 });
 

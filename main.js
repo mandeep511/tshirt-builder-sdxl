@@ -6,6 +6,9 @@ import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js';
 // import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js';
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 
+// State
+let isSpinning = false;
+let tshirtModel = null;
 
 // Three.js setup
 const scene = new THREE.Scene();
@@ -44,8 +47,8 @@ mtlLoader.load(materialPath, (materials) => {
     const patternTexture = object.children[0].material.map;
     const sliderValue = positionSlider.value / 100;
     patternTexture.offset.x = sliderValue;
-
     scene.add(object);
+    tshirtModel = object;
 
     // updateTexture('./image2.png')
 
@@ -116,6 +119,10 @@ scene.add(directionalLight);
 // Render loop
 const animate = () => {
   requestAnimationFrame(animate);
+  if (isSpinning && tshirtModel) {
+    tshirtModel.rotation.y += 0.01; // Adjust the rotation speed as needed
+  }
+
   renderer.render(scene, camera);
 };
 animate();
@@ -138,7 +145,7 @@ const updatePatternPosition = () => {
 }
 
 const positionSlider = document.getElementById('position-slider');
-positionSlider.addEventListener('input',    updatePatternPosition);
+positionSlider.addEventListener('input', updatePatternPosition);
 
 // Pattern generation
 const promptField = document.getElementById('prompt-field');
@@ -147,9 +154,10 @@ const generateBtn = document.getElementById('generate-btn');
 generateBtn.addEventListener('click', async () => {
   const prompt = promptField.value;
   // const payload = { prompt: "Seamless pattern for a t-shirt design, " + prompt + ", high detail, sharp focus, asthetic appeal, 4k" };
-  const payload = { prompt: `Seamless ${prompt} cloth print for t-shirt design, intricate details, sharp focus, aesthetically pleasing, 4k resolution, vector illustration style` };
+  const payload = { prompt: `Seamless ${prompt} cloth design for t-shirt design, intricate details, sharp focus, aesthetically pleasing, 4k resolution, vector illustration style` };
   console.log(payload)
   try {
+    isSpinning = true; // Start spinning
     const response = await fetch('http://127.0.0.1:5000/genrate-pattern-image', {
       method: "POST",
       mode: "cors",
@@ -173,6 +181,8 @@ generateBtn.addEventListener('click', async () => {
 
   } catch (error) {
     console.error('Error generating pattern:', error);
+  } finally {
+    isSpinning = false; // Start spinning
   }
 });
 
@@ -216,6 +226,7 @@ function updateTexture(newTexturePath) {
     });
 
     scene.add(object);
+    tshirtModel = object;
   }, undefined, function (error) {
     console.error('There was an error loading the texture:', error);
   });
